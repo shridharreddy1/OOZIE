@@ -1,0 +1,60 @@
+  OOZIE
+-------------------------------------
+Oozie is one of the component of hadoop which is built on top of HDFS & is exclusively meant for the workflow creation & scheduling of
+some workflow creation & scheduling of some workflows.
+
+Process name of oozie is known as bootstrap.
+needs start-all.sh & historyserver daemon
+
+Oozie is open source ,distributed ,scalable & fault tolerant component which is s java based GUI tool in hadoop which always runs in the 
+below hostname :
+http:<<hostname of oozie>>:11000/oozie
+http://localhost:11000/oozie
+
+COMPONENT USED FOR TRIGGERING :
+------------------------------
+CronTab, Control-M,TWS,Autosys,$u,Quarz
+
+The above component are used to work exclusively with hadoop 
+-> only hadoop related jobs
+-> follows DAG algorithms
+-> niether for storage nor for processing
+
+WHY DAG IS FOLLOWED IN OOZIE?
+-------------------------------------
+Until & unless the dependent task is not completed teh next task will not be started and if any failure in any tasks we need not to start 
+the whole work from the scratch instead we can only resume the workflow from the failed task after recovery in a acyclic fashion. 
+
+
+CORE-BUILDING BLOCKS OF OOZIES
+-------------------------------
+
+In order to create the workflow & schedule the workflow below are the building blocks
+1. job.proper
+ties 
+2. workflow.xml
+3. co-ordinator.xml
+
+--> job.properties: The file consist of high level configuration details like :
+                  a> where namenode physically running in the cluster 
+                  b> where resource manager is running in the cluster
+                  c> Queue name which is default by default  
+                  d> workflow location/path in HDFS.
+                  
+--> workflow.xml: It is the collection of the <action> tag, where each & every action denotes 1 unit of task
+--> coordinator.xml: It only talks about  how to schedule the workflow with some time frequency.Below are some of the parametre 
+                     of coordinator.xml:
+                     a> uniquejobid(which is autocreated by oozie)
+                     b> jobname
+                     c> starttime of the job
+                     d> endtime of the job
+                     e> status/job status   [ running,killed, suspended ,succeeded,etc ]
+                     f> frequency of job    [ hourly, weekly,monthly ]
+                     g> NextMaterialization
+
+TRANSIENT PARAMETER IN OOZIE
+-----------------------------------------
+
+In the wokflow 
+[OK TO] , [FAIL TO] 
+These two tags are known as transit parameter which will talk about how transition need to take place from one action to another action.
